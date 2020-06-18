@@ -3,11 +3,10 @@ class FlatCocktails::CLI
     def call
         puts "Welcome the Flat Cocktails!"
         list_ingredients
-        
         list_cocktails
-        
+        print_cocktails
         cocktail_details
-        
+        print_details
         run
     end
 
@@ -33,7 +32,11 @@ class FlatCocktails::CLI
             puts "Sorry that was an invalid number."
             list_cocktails
         end
+    end
 
+    def print_cocktails
+        puts ""
+        
         FlatCocktails::Cocktails.all.each.with_index(1) do |cocktail, i|
             puts "#{i}. #{cocktail.name}"
         end
@@ -50,15 +53,17 @@ class FlatCocktails::CLI
             puts "Sorry that was an invalid number."
             cocktail_details
         end
+    end
 
-            FlatCocktails::Details.all.each.with_index(1) do |cocktail, i|
-                puts ""
-                puts "\nName: #{cocktail.name}"
-                puts "\nGlass: #{cocktail.glass}"
-                puts "\nIngredients: #{cocktail.ingredients}"
-                puts "\nInstructions: #{cocktail.instructions}"
-                puts ""
-            end
+    def print_details
+        FlatCocktails::Details.all.each.with_index(1) do |cocktail, i|
+            puts ""
+            puts "\nName: #{cocktail.name}"
+            puts "\nGlass: #{cocktail.glass}"
+            puts "\nIngredients: #{cocktail.ingredients}"
+            puts "\nInstructions: #{cocktail.instructions}"
+            puts ""
+        end
     end
 
     def run
@@ -66,13 +71,18 @@ class FlatCocktails::CLI
         input = gets.strip
 
         if input == 'menu'
+            clear
             list_ingredients
             list_cocktails
+            print_cocktails
             cocktail_details
+            print_details
             run
         elsif input == 'list'
-            list_cocktails
+            FlatCocktails::Details.reset
+            print_cocktails
             cocktail_details
+            print_details
             run
         elsif input == 'exit'
             goodbye
@@ -85,6 +95,12 @@ class FlatCocktails::CLI
     def goodbye
         puts "Thanks for visiting Flat Cocktails!"
         puts "Have a nice day!"
+    end
+
+    def clear
+        FlatCocktails::Ingredients.reset
+        FlatCocktails::Cocktails.reset
+        FlatCocktails::Details.reset
     end
 
 end

@@ -16,4 +16,8 @@ class FlatCocktails::Cocktails
         @@all << self
     end
 
+    def self.reset
+        self.all.clear
+    end
+    
 end
