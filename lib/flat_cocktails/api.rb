@@ -10,5 +10,14 @@ class FlatCocktails::API
         end
     end
 
+    def self.get_cocktails
+        response = RestClient.get(BASE_URL + "filter.php?i=Gin")
+        data = JSON.parse(response)
 
+        data["drinks"].each do |cocktails|
+            FlatCocktails::Cocktails.new(name: cocktails["strDrink"])
+        end
+    end
+
+    
 end

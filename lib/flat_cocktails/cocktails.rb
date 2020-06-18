@@ -1,10 +1,19 @@
 class FlatCocktails::Cocktails
+    attr_accessor :name
 
-    def self.cocktails
-        cocktail = self.new
-        cocktail.name
-        cocktail.glass
-        cocktail.ingredients
-        cocktail.instructions
+    @@all = []
+
+    def initialize(name:)
+        self.name = name
+        self.save
     end
+
+    def self.all
+        @@all
+    end
+
+    def save
+        @@all << self
+    end
+
 end
