@@ -38,7 +38,7 @@ class FlatCocktails::API
                     FlatCocktails::Details.new(
                         name: name,
                         glass: glass,
-                        ingredients: ingredients.zip(measures).to_h,
+                        ingredients: measures.zip(ingredients), #zip removes items?
                         instructions: instructions
                     )
                 end

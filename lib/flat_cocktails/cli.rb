@@ -2,7 +2,9 @@ class FlatCocktails::CLI
 
     def call
         puts "Welcome the Flat Cocktails!"
-        list_ingredients
+        puts ""
+
+        print_ingredients
         list_cocktails
         print_cocktails
         cocktail_details
@@ -10,15 +12,13 @@ class FlatCocktails::CLI
         run
     end
 
-    def list_ingredients
-        puts ""
-        puts "Here is our library of ingredients."
+    def print_ingredients
         FlatCocktails::API.get_ingredients
+        puts "Here is our library of ingredients."
 
         FlatCocktails::Ingredients.all.each.with_index(1) do |ingredient, i|
             puts "#{i}: #{ingredient.name}"
         end
-      
     end
 
     def list_cocktails
@@ -36,7 +36,7 @@ class FlatCocktails::CLI
 
     def print_cocktails
         puts ""
-        
+
         FlatCocktails::Cocktails.all.each.with_index(1) do |cocktail, i|
             puts "#{i}. #{cocktail.name}"
         end
@@ -48,7 +48,7 @@ class FlatCocktails::CLI
 
         input = gets.strip
         if (input.to_i).between?(1, FlatCocktails::Cocktails.all.length)
-            FlatCocktails::API.get_details(input)
+            details = FlatCocktails::API.get_details(input)
         else
             puts "Sorry that was an invalid number."
             cocktail_details
@@ -58,11 +58,22 @@ class FlatCocktails::CLI
     def print_details
         FlatCocktails::Details.all.each.with_index(1) do |cocktail, i|
             puts ""
-            puts "\nName: #{cocktail.name}"
-            puts "\nGlass: #{cocktail.glass}"
-            puts "\nIngredients: #{cocktail.ingredients}"
-            puts "\nInstructions: #{cocktail.instructions}"
+            puts "Name: #{cocktail.name}"
             puts ""
+            puts "Glass: #{cocktail.glass}"
+            puts ""
+            puts "Ingredients: " 
+            print_cocktail_ingredients
+            puts ""
+            puts "Instructions: "
+            puts "#{cocktail.instructions}"
+            puts ""
+        end
+    end
+
+    def print_cocktail_ingredients
+        FlatCocktails::Details.all.each do |details|
+            details.ingredients.each {|ingredient| puts "#{ingredient[0]} #{ingredient[1]}"}
         end
     end
 
@@ -72,7 +83,7 @@ class FlatCocktails::CLI
 
         if input == 'menu'
             clear
-            list_ingredients
+            print_ingredients
             list_cocktails
             print_cocktails
             cocktail_details
@@ -93,6 +104,7 @@ class FlatCocktails::CLI
     end
     
     def goodbye
+        puts ""
         puts "Thanks for visiting Flat Cocktails!"
         puts "Have a nice day!"
     end
