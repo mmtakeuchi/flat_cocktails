@@ -32,10 +32,10 @@ class FlatCocktails::API
             FlatCocktails::Details.new(
                 name: name,
                 glass: glass,
-                ingredients: ingredients,
-                measures: measures,
+                ingredients: ingredients.zip(measures).to_h,
                 instructions: instructions
             )
         end
+        binding.pry
     end
 end
