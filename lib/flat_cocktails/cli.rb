@@ -3,14 +3,17 @@ class FlatCocktails::CLI
     def call
         puts "Welcome the Flat Cocktails!"
         list_ingredients
-        binding.pry
+        
         list_cocktails
+        
         cocktail_details
+        
         run
     end
 
     def list_ingredients
-        puts "Here is our library of ingredients. Please choose a number that matches the ingredient for a cocktail list made with the ingredient."
+        puts ""
+        puts "Here is our library of ingredients."
         FlatCocktails::API.get_ingredients
 
         FlatCocktails::Ingredients.all.each.with_index(1) do |ingredient, i|
@@ -20,17 +23,42 @@ class FlatCocktails::CLI
     end
 
     def list_cocktails
+        puts ""
+        print "Please choose a number that matches the ingredient for a cocktail list made with the ingredient. "
+
         input = gets.strip
-        # get user input from ingredient list
-        # use input to get cocktails from api
-        # print cocktail list
+        if (input.to_i).between?(1, FlatCocktails::Ingredients.all.length)
+            FlatCocktails::API.get_cocktails(input)
+        else
+            puts "Sorry that was an invalid number."
+            list_cocktails
+        end
+
+        FlatCocktails::Cocktails.all.each.with_index(1) do |cocktail, i|
+            puts "#{i}. #{cocktail.name}"
+        end
     end
 
     def cocktail_details
+        puts ""
+        print "Select the number for the cocktail you would like to see. "
+
         input = gets.strip
-        # get user input from cocktails list
-        # use input to get cocktail details from api
-        # print cocktail details
+        if (input.to_i).between?(1, FlatCocktails::Cocktails.all.length)
+            FlatCocktails::API.get_details(input)
+        else
+            puts "Sorry that was an invalid number."
+            cocktail_details
+        end
+
+            FlatCocktails::Details.all.each.with_index(1) do |cocktail, i|
+                puts ""
+                puts "\nName: #{cocktail.name}"
+                puts "\nGlass: #{cocktail.glass}"
+                puts "\nIngredients: #{cocktail.ingredients}"
+                puts "\nInstructions: #{cocktail.instructions}"
+                puts ""
+            end
     end
 
     def run
