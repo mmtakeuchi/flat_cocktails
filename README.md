@@ -1,8 +1,6 @@
 # FlatCocktails
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/flat_cocktails`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This Ruby Gem shows cocktail recipes from The Cocktail DB database. Going from the initial ingredients list, then selecting through the provided cocktail list made with the selected ingredient, will lead to the cocktail recipe.
 
 ## Installation
 
