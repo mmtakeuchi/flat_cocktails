@@ -20,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Enter numbers to match the list thats presented. After getting the cocktail details, enter another command to either run through the program from the ingredients list again, or back to the cocktail list from the previously selected ingredient. Entering exit will also terminate the program.
 
 ## Development
 
