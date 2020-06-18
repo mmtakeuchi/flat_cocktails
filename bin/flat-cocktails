@@ -2,4 +2,4 @@
 
 require_relative "../lib/flat_cocktails"
 
-FlatCocktails::API.get_cocktails
+FlatCocktails::API.get_details

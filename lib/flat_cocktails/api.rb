@@ -19,5 +19,23 @@ class FlatCocktails::API
         end
     end
 
-    
+    def self.get_details
+        response = RestClient.get(BASE_URL + "search.php?s=69%20special")
+        data = JSON.parse(response)
+
+        data["drinks"].each do |details|
+            name = details["strDrink"]
+            glass = details["strGlass"]
+            ingredients = details.select {|k| k.start_with?("strIngredient")}.compact.values
+            measures = details.select {|k| k.start_with?("strMeasure")}.compact.values
+            instructions = details["strInstructions"]
+            FlatCocktails::Details.new(
+                name: name,
+                glass: glass,
+                ingredients: ingredients,
+                measures: measures,
+                instructions: instructions
+            )
+        end
+    end
 end

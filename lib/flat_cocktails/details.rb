@@ -1,12 +1,13 @@
 class FlatCocktails::Details
-    attr_accessor :name, :glass, :ingredients, :instructions
+    attr_accessor :name, :glass, :ingredients, :measures, :instructions
 
     @@all = []
-    
-    def self.cocktails(name:, glass:, ingredients:, instructions:)
+
+    def initialize(name:, glass:, ingredients:, measures:, instructions:)
         self.name = name
         self.glass = glass
         self.ingredients = ingredients
+        self.measures = measures
         self.instructions = instructions
         self.save
     end
