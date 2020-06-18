@@ -3,4 +3,4 @@
 require_relative "../lib/flat_cocktails"
 
 FlatCocktails::CLI.new.call
-# FlatCocktails::API.get_details
+
