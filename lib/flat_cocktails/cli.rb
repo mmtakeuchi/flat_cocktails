@@ -2,7 +2,6 @@ class FlatCocktails::CLI
 
     def call
         puts "Welcome the Flat Cocktails!"
-        puts ""
 
         print_ingredients
         list_cocktails
@@ -15,6 +14,7 @@ class FlatCocktails::CLI
     def print_ingredients
         FlatCocktails::API.get_ingredients
         puts "Here is our library of ingredients."
+        sleep 0.75
 
         FlatCocktails::Ingredients.all.each.with_index(1) do |ingredient, i|
             puts "#{i}: #{ingredient.name}"
