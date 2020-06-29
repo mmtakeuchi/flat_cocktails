@@ -2,5 +2,5 @@
 
 require_relative "../lib/flat_cocktails"
 
-FlatCocktails::CLI.new.call
+FlatCocktails::CLI.new.run
 
