@@ -1,14 +1,17 @@
 class FlatCocktails::CLI
 
-    def call
+    def run
         puts "Welcome the Flat Cocktails!"
+        call
+    end
 
+    def call
         print_ingredients
         list_cocktails
         print_cocktails
         cocktail_details
         print_details
-        run
+        choice
     end
 
     def print_ingredients
@@ -77,29 +80,24 @@ class FlatCocktails::CLI
         end
     end
 
-    def run
+    def choice
         puts "Enter 'menu' if you would like to go back to the ingredients list, 'list' to go back to the cocktail list, and 'exit' to leave the program."
         input = gets.strip
 
         if input == 'menu'
             clear
-            print_ingredients
-            list_cocktails
-            print_cocktails
-            cocktail_details
-            print_details
-            run
+            call
         elsif input == 'list'
             FlatCocktails::Details.reset
             print_cocktails
             cocktail_details
             print_details
-            run
+            choice
         elsif input == 'exit'
             goodbye
         else
             puts "Sorry invalid response."
-            run
+            choice
         end
     end
     
