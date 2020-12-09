@@ -1,6 +1,7 @@
 class FlatCocktails::CLI
 
     def run
+        puts ""
         puts "Welcome the Flat Cocktails!"
         call
     end
@@ -16,8 +17,10 @@ class FlatCocktails::CLI
 
     def print_ingredients
         FlatCocktails::API.get_ingredients
+
         puts "Here is our library of ingredients."
-        sleep 0.75
+        puts ""
+        sleep 0.50
 
         FlatCocktails::Ingredients.all.each.with_index(1) do |ingredient, i|
             puts "#{i}: #{ingredient.name}"
@@ -26,11 +29,13 @@ class FlatCocktails::CLI
 
     def list_cocktails
         puts ""
-        print "Please choose a number that matches the ingredient for a cocktail list made with the ingredient. "
+        puts "Please choose a number that matches the ingredient for a cocktail list made with the ingredient. Or exit to leave program."
 
         input = gets.strip
         if (input.to_i).between?(1, FlatCocktails::Ingredients.all.length)
             FlatCocktails::API.get_cocktails(input)
+        elsif (input.downcase === 'exit' || input.downcase === "e")
+            goodbye
         else
             puts "Sorry that was an invalid number."
             list_cocktails
@@ -47,11 +52,13 @@ class FlatCocktails::CLI
 
     def cocktail_details
         puts ""
-        print "Select the number for the cocktail you would like to see. "
+        puts "Select the number for the cocktail you would like to see. Or exit to leave program."
 
         input = gets.strip
         if (input.to_i).between?(1, FlatCocktails::Cocktails.all.length)
             details = FlatCocktails::API.get_details(input)
+        elsif (input.downcase === 'exit' || input.downcase === "e")
+            goodbye
         else
             puts "Sorry that was an invalid number."
             cocktail_details
@@ -105,6 +112,10 @@ class FlatCocktails::CLI
         puts ""
         puts "Thanks for visiting Flat Cocktails!"
         puts "Have a nice day!"
+        puts ""
+
+        clear
+        exit
     end
 
     def clear

@@ -4,7 +4,7 @@ class FlatCocktails::Cocktails
     @@all = []
 
     def initialize(name:)
-        self.name = name
+        @name = name
         self.save
     end
 
@@ -19,5 +19,5 @@ class FlatCocktails::Cocktails
     def self.reset
         self.all.clear
     end
-    
+
 end
